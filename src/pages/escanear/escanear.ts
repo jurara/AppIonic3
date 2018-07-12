@@ -2,16 +2,17 @@ import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { ResultadosPage } from '../resultados/resultados';
 
-import { HttpClient } from '@angular/common/http';
+
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Observable } from 'rxjs/Observable';
 import { ImagePicker } from "@ionic-native/image-picker";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'page-escanear',
   templateUrl: 'escanear.html'
 })
 export class EscanearPage {
-
+public ocultar:boolean=false
   mifoto:any;
   result:any=[];
   data:Observable<any>;
@@ -63,27 +64,41 @@ export class EscanearPage {
     this.imagePicker.getPictures(options).then((imageData) => {
      for(var i=0;i<imageData.length;i++){
        this.toast("cargando imagen ",i+1);
+       
      }
      this.mifoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
      this.toast("eroor:","no se pudo obtener img");
+     this.aparecer();
     });
+  }//termina obtener foto
+
+
+  aparecer(){
+this.ocultar=!this.ocultar
+
+
   }
 
 
-
-
+  
+  
 
   postfoto(){
-    var url='https://f5656633.ngrok.io/analizarMuestra'
-    let postData=new FormData();
-    postData.append('hojas',this.mifoto);
-    this.data=this.http.post(url,postData);
-    this.data.subscribe(data=>{
-      console.log(data)
-      this.toast(data, "se mando");
+    var url='https://cc65943d.ngrok.io/analizarMuestra';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
     });
-    this.toast("->",this.mifoto);
+  
+
+    let body = {
+      hojas:this.mifoto
+    };
+
+    this.http.post(url, JSON.stringify(body), {headers: headers})
+      .subscribe(data => {
+        console.log(data);
+      });
   }
 
  toast(msg,t){
