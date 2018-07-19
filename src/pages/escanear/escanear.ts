@@ -7,6 +7,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Observable } from 'rxjs/Observable';
 import { ImagePicker } from "@ionic-native/image-picker";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LottieAnimationViewModule } from 'ng-lottie';
 @Component({
   selector: 'page-escanear',
   templateUrl: 'escanear.html'
@@ -16,8 +17,39 @@ public ocultar:boolean=false
   mifoto:any;
   result:any=[];
   data:Observable<any>;
+  lottieConfig:any
+  lottieConfig2:any
+  lottieConfig3:any
+  lottieConfig4:any
   constructor(public navCtrl: NavController,private camera:Camera, public http:HttpClient,public mytoast:ToastController
     ,public imagePicker:ImagePicker) {//
+      LottieAnimationViewModule.forRoot()
+      this.lottieConfig = {
+        path: 'assets/foto_icon_.json',
+       autoplay: true,
+        loop: true
+      }// camara
+      this.lottieConfig2= {
+        
+        path:'assets/file_error.json',
+        autoplay: true,
+        loop: true
+      }//no poner
+      this.lottieConfig3= {
+      
+        path:'assets/cloud_upload.json',
+        autoplay: true,
+        loop: true
+      }//imagen de enviarioni
+
+      this.lottieConfig4= {
+      
+        path:'assets/layers.json',
+        autoplay: true,
+        loop: true
+      }//json de obtener foto
+
+
   }
   goToResultados(params){
     if (!params) params = {};
@@ -32,8 +64,8 @@ public ocultar:boolean=false
       mediaType: this.camera.MediaType.PICTURE,
       sourceType:this.camera.PictureSourceType.CAMERA,
       saveToPhotoAlbum:true,
-      targetHeight:400,
-      targetWidth:200,
+      targetHeight:480,
+      targetWidth:480,
       allowEdit:true,
       
     }
@@ -57,8 +89,8 @@ public ocultar:boolean=false
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       saveToPhotoAlbum:false,
-      targetHeight:400,
-      targetWidth:200
+      targetHeight:480,
+      targetWidth:480
     }
     
     this.imagePicker.getPictures(options).then((imageData) => {
@@ -85,14 +117,14 @@ this.ocultar=!this.ocultar
   
 
   postfoto(){
-    var url='https://cc65943d.ngrok.io/analizarMuestra';
+    var url='https://eeb9c65c.ngrok.io/analizarMuestra';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
   
 
     let body = {
-      hojas:this.mifoto
+      hojas:[this.mifoto]
     };
 
     this.http.post(url, JSON.stringify(body), {headers: headers})

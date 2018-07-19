@@ -10,7 +10,7 @@ import { AcercaDePage } from '../pages/acerca-de/acerca-de';
 import { InicioPage } from '../pages/inicio/inicio';
 
 import { HttpClientModule } from '@angular/common/http';
-
+import {LottieAnimationViewModule} from 'ng-lottie';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
@@ -27,7 +27,7 @@ import { ImagePicker } from "@ionic-native/image-picker";
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    HttpClientModule,LottieAnimationViewModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

@@ -9,20 +9,20 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page3" style="background-color:#32558D;">
-  <img src="{{ mifoto }}" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
+  <img src="{{ mifoto }}" style="display:block;width:50%;height:auto;margin-left:auto;margin-right:auto;" />
   <button id="escanear-button4" ion-button color="balanced" block style="font-weight:lighter;font-style:italic;" on-click="goToResultados()">
     escanear
   </button>
   <button id="escanear-button6" ion-button color="balanced" (click)="tomarfoto()" block>
-    <ion-icon name="camera"></ion-icon> tomar foto
+    <lottie-animation-view [options]="lottieConfig" [width]="60" [height]="60"></lottie-animation-view>    tomar foto
   </button>
 
   <button ion-button color="secondary" (click)="obtenerfoto()" block>
-    <ion-icon name="camera"></ion-icon>  Obtener foto
+    <lottie-animation-view [options]="lottieConfig2" [width]="60" [height]="60"></lottie-animation-view>  Obtener foto
   </button>
 
   <button ion-button color="secondary" (click)="postfoto()" block>
-    <ion-icon name="send"></ion-icon>Enviar Imagenes
+    <lottie-animation-view [options]="lottieConfig3" [width]="60" [height]="60"></lottie-animation-view>Enviar Imagenes
   </button>
 <button ion-fab style="background-color: chartreuse" *ngIf="ocultar">
 
