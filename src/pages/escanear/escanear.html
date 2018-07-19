@@ -28,11 +28,17 @@
 
 <ion-icon name="leaf"></ion-icon>
 
+<ion-card  class="card-oscuro">
+  <ion-slides class="image-slider" loop="true" effect="coverflow">
+    <ion-slide *ngFor="let photo of result">
+      <p style="color:#e6e6e6;"><ion-icon name="md-images"  ></ion-icon> {{photo}} <ion-icon name="md-rewind" float-right></ion-icon></p>
+      <img src={{photo. foto}} class="thumb-img" imageViewer/>
+    </ion-slide>
+  </ion-slides>
+</ion-card>
+
+
 </button>
 
-  <!--
-  <p align="center">
-    <img src="{{ mifoto }}">
-  </p>
-  -->
+  
 </ion-content>

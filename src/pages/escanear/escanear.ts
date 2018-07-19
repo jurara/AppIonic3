@@ -21,6 +21,8 @@ public ocultar:boolean=false
   lottieConfig2:any
   lottieConfig3:any
   lottieConfig4:any
+  photos:any=[];
+
   constructor(public navCtrl: NavController,private camera:Camera, public http:HttpClient,public mytoast:ToastController
     ,public imagePicker:ImagePicker) {//
       LottieAnimationViewModule.forRoot()
@@ -75,6 +77,7 @@ public ocultar:boolean=false
      // If it's base64:
      this.toast("se tomo foto","1");
      this.mifoto ='data:image/jpeg;base64,'+ imageData;//
+     this.photos.push(this.mifoto);
     }, (err) => {
       this.toast("error verifica la camara","1");
      // Handle error
@@ -96,7 +99,7 @@ public ocultar:boolean=false
     this.imagePicker.getPictures(options).then((imageData) => {
      for(var i=0;i<imageData.length;i++){
        this.toast("cargando imagen ",i+1);
-       
+       this.result='data:image/jpeg;base64,' + imageData[i];
      }
      this.mifoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
