@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { ResultadosPage } from '../resultados/resultados';
-
-
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Observable } from 'rxjs/Observable';
 import { ImagePicker } from "@ionic-native/image-picker";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LottieAnimationViewModule } from 'ng-lottie';
+import { Base64 } from "@ionic-native/base64";
+
+
+
+
 @Component({
   selector: 'page-escanear',
   templateUrl: 'escanear.html'
@@ -16,15 +19,19 @@ export class EscanearPage {
 public ocultar:boolean=false
   mifoto:any;
   result:any=[];
+  vectorbase:any=[];
   data:Observable<any>;
   lottieConfig:any
   lottieConfig2:any
   lottieConfig3:any
   lottieConfig4:any
   photos:any=[];
+  images: any = [];
 
   constructor(public navCtrl: NavController,private camera:Camera, public http:HttpClient,public mytoast:ToastController
-    ,public imagePicker:ImagePicker) {//
+    ,public imagePicker:ImagePicker,private base64: Base64) {//
+      
+
       LottieAnimationViewModule.forRoot()
       this.lottieConfig = {
         path: 'assets/foto_icon_.json',
@@ -99,7 +106,9 @@ public ocultar:boolean=false
     this.imagePicker.getPictures(options).then((imageData) => {
      for(var i=0;i<imageData.length;i++){
        this.toast("cargando imagen ",i+1);
-       this.result='data:image/jpeg;base64,' + imageData[i];
+       this.mifoto = 'data:image/jpeg;base64,' + imageData[i];
+
+       this.images.push(this.mifoto);
      }
      this.mifoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
@@ -108,6 +117,8 @@ public ocultar:boolean=false
     });
   }//termina obtener foto
 
+
+  
 
   aparecer(){
 this.ocultar=!this.ocultar
@@ -120,23 +131,56 @@ this.ocultar=!this.ocultar
   
 
   postfoto(){
-    var url='https://eeb9c65c.ngrok.io/analizarMuestra';
+    var url='https://2247456e.ngrok.io/analizarMuestra';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-  
-
+    
+    
+    
     let body = {
-      hojas:[this.mifoto]
+      hojas:[this.vectorbase]
     };
 
     this.http.post(url, JSON.stringify(body), {headers: headers})
       .subscribe(data => {
+        
         console.log(data);
       });
+      this.vectorbase=[];
+      
   }
 
- toast(msg,t){
+  /////////////////////////////////////////////////////////////////////////////////
+  getPictures2(){ 
+    let options = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      saveToPhotoAlbum:false,
+      targetHeight:480,
+      targetWidth:480,
+      allowEdit:true
+    };
+    this.imagePicker.getPictures(options).then((results) => {
+      for (var i = 0; i < results.length; i++) {
+        this.images.push(results[i]);  
+        this.mifoto = results[i];
+          this.base64.encodeFile(results[i]).then((base64File: string) => {
+            this.vectorbase.push(base64File);
+            
+          }, (err) => {
+            console.log(err);
+          });
+      }
+    }, (err) => { console.log(err); });
+  }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+toast(msg,t){
 let toas=this.mytoast.create({
 duration:3000,
 message:msg+" "+t,

@@ -15,6 +15,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from "@ionic-native/image-picker";
+import { Base64 } from '@ionic-native/base64';
 @NgModule({
   declarations: [
     MyApp,
@@ -42,7 +43,7 @@ import { ImagePicker } from "@ionic-native/image-picker";
   ],
   providers: [
     StatusBar,
-    SplashScreen,Camera,ImagePicker,
+    SplashScreen,Camera,ImagePicker,Base64,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

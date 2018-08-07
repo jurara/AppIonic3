@@ -1,3 +1,16 @@
 page-escanear {
-
+    .image-container{
+        background: cover;
+        min-height: 200px;
+    }
+    
+    [col-3]{
+        padding: 0px 0.5px;    
+    }
+    [col-3]:first-child{
+        padding-left: 1px;
+    }
+    [col-3]:last-child{
+        padding-right: 1px;
+    }
 }

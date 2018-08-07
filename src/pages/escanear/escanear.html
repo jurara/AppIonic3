@@ -8,7 +8,19 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
+
+
 <ion-content padding id="page3" style="background-color:#32558D;">
+ 
+
+  
+  <!--ng-controller="ExampleController" ng-init="preImages()"-->
+  
+
+
+
+
+
   <img src="{{ mifoto }}" style="display:block;width:50%;height:auto;margin-left:auto;margin-right:auto;" />
   <button id="escanear-button4" ion-button color="balanced" block style="font-weight:lighter;font-style:italic;" on-click="goToResultados()">
     escanear
@@ -40,5 +52,31 @@
 
 </button>
 
-  
+<ion-content padding>
+  <button ion-button (click)="getPictures2()">Get Pictures</button>
+  <div class="row" >
+    <ion-item-divider>
+      Árbol 1
+    </ion-item-divider>
+    <div *ngFor="let image of images; let i=index;">
+      <ion-row *ngIf="i%4===0">
+        <ion-col col-3 *ngIf="i<images.length">
+            <img [src]="images[i]">
+        </ion-col>
+        <ion-col col-3 *ngIf="i+1<images.length">
+            <img [src]="images[i+1]">
+        </ion-col>
+        <ion-col col-3 *ngIf="i+2<images.length">
+            <img [src]="images[i+2]">
+        </ion-col>
+        <ion-col col-3 *ngIf="i+3<images.length">
+            <img [src]="images[i+3]">
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+ 
+</ion-content>
+
+
 </ion-content>
