@@ -87,7 +87,8 @@ public ocultar:boolean=false
      // If it's base64:
      this.toast("se tomo foto","1");
      this.mifoto ='data:image/jpeg;base64,'+ imageData;//
-     this.photos.push(this.mifoto);
+     this.images.push(this.mifoto);
+     this.vectorbase.push(this.mifoto);
     }, (err) => {
       this.toast("error verifica la camara","1");
      // Handle error
@@ -138,7 +139,7 @@ this.ocultar=!this.ocultar
       content: "Enviando imagenes, Favor de esperar..."
     });  
     loader.present();
-    var url='https://2cc77abb.ngrok.io/analizarMuestra';
+    var url='https://1b1e1364.ngrok.io/analizarMuestra';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
