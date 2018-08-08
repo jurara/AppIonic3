@@ -9,48 +9,28 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page4" style="background-color:rgb(197, 103, 15);">
-  <img src="assets/img/uDOtW0UvSFlfupamOkQy_segment_filtro3.png" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
-  <h2 id="resultados-heading1" style="color:#000000;text-align:center;">
+  <h1 id="resultados-heading1" style="color:#000000;text-align:center;">
     Resultados obtenidos:
-  </h2>
-  <div id="resultados-markdown1" class="show-list-numbers-and-dots">
-    <p style="color:#000000;font-size:20px;">
-      Tipo de severidad
-      <strong>
-        X
-      </strong>
-    </p>
-    <p style="color:#000000;font-size:20px;">
-      <strong>
-        Recomendacion:
-      </strong>
-    </p>
-    <ol>
-      <li>
-        <p style="color:#000000;font-size:20px;">
-          <strong>
-            Aplica...
-          </strong>
-        </p>
-      </li>
-      <li>
-        <p style="color:#000000;font-size:20px;">
-          <strong>
-            Corta...
-          </strong>
-        </p>
-      </li>
-      <li>
-        <p style="color:#000000;font-size:20px;">
-          <strong>
-            Fumiga...
-          </strong>
-        </p>
-      </li>
-    </ol>
-  </div>
-  <button id="resultados-button7" ion-button color="balanced" block icon-right style="text-align:left;">
-    Contactar Inifap
-    <ion-icon name="call"></ion-icon>
+  </h1>
+
+<ion-card style="background-color:#248127;">
+<h2  style="text-align: center; font-weight: bolder">Estadísticas Generales</h2>
+<p style=" text-align: left; font-weight: bolder">Tamaño de muestra: <span style="float:right">{{stats.tam_muestra}} imágenes</span></p>
+<p style=" text-align: left; font-weight: bolder">% de hojas enfermas: <span style="float:right">{{stats.prome_enf}}%</span></p>
+<p style=" text-align: left; font-weight: bolder">Nivel de severidad: <span style="float:right">{{stats.nivel_sev}}</span></p>
+</ion-card>
+  <ion-card *ngFor = "let diags of contenedor; let i = index"  class="card-oscuro" style="background-color:#32db64;" >
+    <h2 style="text-align: center; font-weight: bolder"> Arbol {{i+1}}</h2>
+      <p style=" text-align: left; font-weight: bolder">Enfermas:  <span style="float:right">{{diags.num_enfermas}} </span> </p>
+      <p style=" text-align: left; font-weight: bolder">No enfermas: <span style="float:right">{{diags.num_sanas}}</span></p>
+      <p style=" text-align: left; font-weight: bolder">Deficiencia de nutrición: <span style="float:right">{{diags.num_nutricion}}</span></p>
+      <p style=" text-align: left; font-weight: bolder">% Enfermas: <span style="float:right">{{diags.porcentaje_enf}}%</span></p>
+  </ion-card>
+  
+
+  <button id="resultados-button7" ion-button color="balanced" block icon-right style="text-align:left;" on-click="goToEscanear()">
+    Escanear nuevo set
+    <ion-icon name="arrow-round-back"></ion-icon>
   </button>
+  
 </ion-content>
