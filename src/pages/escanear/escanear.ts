@@ -30,6 +30,7 @@ public ocultar:boolean=false
   lottieConfig4:any
   photos:any=[];
   images: any = [];
+  resultados: any = [];
 
   constructor(public navCtrl: NavController,private camera:Camera, public http:HttpClient,public mytoast:ToastController
     ,public imagePicker:ImagePicker,private base64: Base64,public loadingController: LoadingController) {//
@@ -65,7 +66,7 @@ public ocultar:boolean=false
   }
   goToResultados(params){
     if (!params) params = {};
-    this.navCtrl.push(ResultadosPage);
+    this.navCtrl.push(ResultadosPage,{res:this.resultados});
   }
 
   tomarfoto(){
@@ -139,7 +140,7 @@ this.ocultar=!this.ocultar
       content: "Enviando imagenes, Favor de esperar..."
     });  
     loader.present();
-    var url='https://1b1e1364.ngrok.io/analizarMuestra';
+    var url='http://167.99.170.36/analizarMuestra';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -153,8 +154,9 @@ this.ocultar=!this.ocultar
         loader.dismiss();
         this.vectorbase=[];
       this.images=[];
-        this.toast("",data);
         
+        this.resultados=data;
+        this.goToResultados({});
       })
       .subscribe(data => {
         
@@ -168,12 +170,8 @@ this.ocultar=!this.ocultar
   getPictures2(){ 
     let options = {
       quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      saveToPhotoAlbum:false,
-      targetHeight:480,
-      targetWidth:480,
-      allowEdit:true
+      width: 480,
+	    height: 480
     };
     this.imagePicker.getPictures(options).then((results) => {
       for (var i = 0; i < results.length; i++) {

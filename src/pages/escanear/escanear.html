@@ -53,7 +53,7 @@
 </button>
 
 <ion-content padding>
-  <button ion-button (click)="getPictures2()">Get Pictures</button>
+  
   <div class="row" >
     <ion-item-divider>
       Árbol 1
@@ -61,16 +61,16 @@
     <div *ngFor="let image of images; let i=index;">
       <ion-row *ngIf="i%4===0">
         <ion-col col-3 *ngIf="i<images.length">
-            <img [src]="images[i]">
+            <img [src]="images[i]"  height="120px">
         </ion-col>
         <ion-col col-3 *ngIf="i+1<images.length">
-            <img [src]="images[i+1]">
+            <img [src]="images[i+1]" height="120px">
         </ion-col>
-        <ion-col col-3 *ngIf="i+2<images.length">
-            <img [src]="images[i+2]">
+        <ion-col col-3 *ngIf="i+2<images.length" >
+            <img [src]="images[i+2]" height="120px">
         </ion-col>
-        <ion-col col-3 *ngIf="i+3<images.length">
-            <img [src]="images[i+3]">
+        <ion-col col-3 *ngIf="i+3<images.length" >
+            <img [src]="images[i+3]" height="120px">
         </ion-col>
       </ion-row>
     </div>
