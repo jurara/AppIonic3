@@ -115,7 +115,7 @@ public ocultar:boolean=false
      }
      this.mifoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
-     this.toast("eroor:","no se pudo obtener img");
+     this.toast("error:","no se pudo obtener img");
      this.aparecer();
     });
   }//termina obtener foto
