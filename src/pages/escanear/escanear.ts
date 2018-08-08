@@ -7,15 +7,18 @@ import { ImagePicker } from "@ionic-native/image-picker";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LottieAnimationViewModule } from 'ng-lottie';
 import { Base64 } from "@ionic-native/base64";
+import { LoadingController } from 'ionic-angular';
 
-
-
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'page-escanear',
   templateUrl: 'escanear.html'
 })
 export class EscanearPage {
+  
 public ocultar:boolean=false
   mifoto:any;
   result:any=[];
@@ -29,7 +32,7 @@ public ocultar:boolean=false
   images: any = [];
 
   constructor(public navCtrl: NavController,private camera:Camera, public http:HttpClient,public mytoast:ToastController
-    ,public imagePicker:ImagePicker,private base64: Base64) {//
+    ,public imagePicker:ImagePicker,private base64: Base64,public loadingController: LoadingController) {//
       
 
       LottieAnimationViewModule.forRoot()
@@ -131,23 +134,32 @@ this.ocultar=!this.ocultar
   
 
   postfoto(){
-    var url='https://2247456e.ngrok.io/analizarMuestra';
+    let loader = this.loadingController.create({
+      content: "Enviando imagenes, Favor de esperar..."
+    });  
+    loader.present();
+    var url='https://2cc77abb.ngrok.io/analizarMuestra';
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    
-    
     
     let body = {
       hojas:[this.vectorbase]
     };
 
     this.http.post(url, JSON.stringify(body), {headers: headers})
+      .map(data => {
+        loader.dismiss();
+        this.vectorbase=[];
+      this.images=[];
+        this.toast("",data);
+        
+      })
       .subscribe(data => {
         
         console.log(data);
       });
-      this.vectorbase=[];
+      
       
   }
 
