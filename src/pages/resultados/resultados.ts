@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,NavParams } from 'ionic-angular';
 import { EscanearPage } from '../escanear/escanear';
 
 @Component({
@@ -9,36 +9,12 @@ import { EscanearPage } from '../escanear/escanear';
 export class ResultadosPage {
 
   contenedor:any =[];
+  result: any = [];
   stats:any = {"tam_muestra":0,"prome_enf":1,"nivel_sev":2}
   
 
-  constructor(public navCtrl: NavController) {
-    var respuesta_serv = {"success":true,
-                          "message":"Diagnostico completado",
-                          "tam_muestra":20,
-                          "diagnostico":[{"num_enfermas":2,
-                                          "num_sanas":1,
-                                          "num_nutricion":1,
-                                          "porcentaje_enf":50},
-                                        {"num_enfermas":1,
-                                        "num_sanas":0,
-                                        "num_nutricion":3,
-                                        "porcentaje_enf":25},
-                                        {"num_enfermas":0,
-                                        "num_sanas":3,
-                                        "num_nutricion":1,
-                                        "porcentaje_enf":0},
-                                        {"num_enfermas":4,
-                                        "num_sanas":0,
-                                        "num_nutricion":0,
-                                        "porcentaje_enf":100},
-                                        {"num_enfermas":3,
-                                        "num_sanas":0,
-                                        "num_nutricion":1,
-                                        "porcentaje_enf":75}
-                                      
-                                      
-                                      ]};
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    var respuesta_serv = navParams.get("res");
     var diag = respuesta_serv.diagnostico;
     this.contenedor = respuesta_serv.diagnostico;
     

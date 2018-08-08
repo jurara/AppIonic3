@@ -30,6 +30,7 @@ public ocultar:boolean=false
   lottieConfig4:any
   photos:any=[];
   images: any = [];
+  resultados: any = [];
 
   constructor(public navCtrl: NavController,private camera:Camera, public http:HttpClient,public mytoast:ToastController
     ,public imagePicker:ImagePicker,private base64: Base64,public loadingController: LoadingController) {//
@@ -65,7 +66,7 @@ public ocultar:boolean=false
   }
   goToResultados(params){
     if (!params) params = {};
-    this.navCtrl.push(ResultadosPage);
+    this.navCtrl.push(ResultadosPage,{res:this.resultados});
   }
 
   tomarfoto(){
@@ -153,8 +154,9 @@ this.ocultar=!this.ocultar
         loader.dismiss();
         this.vectorbase=[];
       this.images=[];
-        this.toast("",data);
         
+        this.resultados=data;
+        this.goToResultados({});
       })
       .subscribe(data => {
         
