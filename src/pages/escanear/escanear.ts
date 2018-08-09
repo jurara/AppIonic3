@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LottieAnimationViewModule } from 'ng-lottie';
 import { Base64 } from "@ionic-native/base64";
 import { LoadingController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
@@ -33,7 +34,7 @@ public ocultar:boolean=false
   resultados: any = [];
 
   constructor(public navCtrl: NavController,private camera:Camera, public http:HttpClient,public mytoast:ToastController
-    ,public imagePicker:ImagePicker,private base64: Base64,public loadingController: LoadingController) {//
+    ,public imagePicker:ImagePicker,private base64: Base64,public loadingController: LoadingController,private alertCtrl: AlertController) {//
       
 
       LottieAnimationViewModule.forRoot()
@@ -132,10 +133,20 @@ this.ocultar=!this.ocultar
   }
 
 
-  
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Seleccione imágenes',
+      subTitle: 'Por favor, seleccione/capture una o más imágenes para el análisis',
+      buttons: ['   Ok   ']
+    });
+    alert.present();
+  }
   
 
   postfoto(){
+    if(this.vectorbase.length==0){
+      this.presentAlert();
+    }else{
     let loader = this.loadingController.create({
       content: "Enviando imagenes, Favor de esperar..."
     });  
@@ -163,7 +174,7 @@ this.ocultar=!this.ocultar
         console.log(data);
       });
       
-      
+    }
   }
 
   /////////////////////////////////////////////////////////////////////////////////
