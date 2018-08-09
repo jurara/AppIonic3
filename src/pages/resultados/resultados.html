@@ -15,14 +15,18 @@
 
   <img src="assets/img/lime.png" style="display:block;width:50%;height:auto;margin-left:auto;margin-right:auto;" />
 
-<ion-card style="background-color:#248127;">
+<ion-card style="background-color:#32db64;">
+<ion-item-divider style="background-color:#248127;" >
 <h2  style="text-align: center; font-weight: bolder">Estadísticas Generales</h2>
+</ion-item-divider>
 <p style=" text-align: left; font-weight: bolder">Tamaño de muestra: <span style="float:right">{{stats.tam_muestra}} imágenes</span></p>
 <p style=" text-align: left; font-weight: bolder">% de hojas enfermas: <span style="float:right">{{stats.prome_enf}}%</span></p>
 <p style=" text-align: left; font-weight: bolder">Nivel de severidad: <span style="float:right">{{stats.nivel_sev}}</span></p>
 </ion-card>
   <ion-card *ngFor = "let diags of contenedor; let i = index"  class="card-oscuro" style="background-color:#32db64;" >
+  <ion-item-divider style="background-color:#248127;">
     <h2 style="text-align: center; font-weight: bolder"> Arbol {{i+1}}</h2>
+  </ion-item-divider>
       <p style=" text-align: left; font-weight: bolder">Enfermas:  <span style="float:right">{{diags.num_enfermas}} </span> </p>
       <p style=" text-align: left; font-weight: bolder">No enfermas: <span style="float:right">{{diags.num_sanas}}</span></p>
       <p style=" text-align: left; font-weight: bolder">Deficiencia de nutrición: <span style="float:right">{{diags.num_nutricion}}</span></p>

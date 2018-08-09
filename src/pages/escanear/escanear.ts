@@ -32,6 +32,7 @@ public ocultar:boolean=false
   photos:any=[];
   images: any = [];
   resultados: any = [];
+  contenedor:any = [[]];
 
   constructor(public navCtrl: NavController,private camera:Camera, public http:HttpClient,public mytoast:ToastController
     ,public imagePicker:ImagePicker,private base64: Base64,public loadingController: LoadingController,private alertCtrl: AlertController) {//
@@ -91,12 +92,22 @@ public ocultar:boolean=false
      this.mifoto ='data:image/jpeg;base64,'+ imageData;//
      this.images.push(this.mifoto);
      this.vectorbase.push(this.mifoto);
+     this.contenedor[this.contenedor.length-1].push(this.mifoto); // Agrega imagenes al arbol mas nuevo
     }, (err) => {
-      this.toast("error verifica la camara","1");
+      this.toast("Error comunicando a la Camara","");
      // Handle error
     });
   }
 
+  agregarArbol(){
+    if (this.contenedor[this.contenedor.length-1].length>0){ //Si no hay ninguna imagen capturada no crea arbol
+    this.contenedor.push([]); // Nuevo arreglo de arreglos; Nuevo arbol
+    this.toast(this.contenedor.length+"<- ->"+this.contenedor[this.contenedor.length-2].length,"");
+    }
+    else {
+      this.toast("Agregue hojas al arbol actual antes de agregar otro","");
+    }
+  }
 
   obtenerfoto(){
     
@@ -190,7 +201,8 @@ this.ocultar=!this.ocultar
         this.mifoto = results[i];
           this.base64.encodeFile(results[i]).then((base64File: string) => {
             this.vectorbase.push(base64File);
-            
+
+            this.contenedor[this.contenedor.length-1].push(base64File);
           }, (err) => {
             console.log(err);
           });
