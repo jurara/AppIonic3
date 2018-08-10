@@ -33,6 +33,7 @@ public ocultar:boolean=false
   images: any = [];
   resultados: any = [];
   contenedor:any = [[]];
+  contenedorvisual:any=[[]];
 
   constructor(public navCtrl: NavController,private camera:Camera, public http:HttpClient,public mytoast:ToastController
     ,public imagePicker:ImagePicker,private base64: Base64,public loadingController: LoadingController,private alertCtrl: AlertController) {//
@@ -93,6 +94,7 @@ public ocultar:boolean=false
      this.images.push(this.mifoto);
      this.vectorbase.push(this.mifoto);
      this.contenedor[this.contenedor.length-1].push(this.mifoto); // Agrega imagenes al arbol mas nuevo
+     this.contenedorvisual[this.contenedorvisual.length-1].push(this.mifoto);
     }, (err) => {
       this.toast("Error comunicando a la Camara","");
      // Handle error
@@ -102,7 +104,8 @@ public ocultar:boolean=false
   agregarArbol(){
     if (this.contenedor[this.contenedor.length-1].length>0){ //Si no hay ninguna imagen capturada no crea arbol
     this.contenedor.push([]); // Nuevo arreglo de arreglos; Nuevo arbol
-    this.toast(this.contenedor.length+"<- ->"+this.contenedor[this.contenedor.length-2].length,"");
+    this.contenedorvisual.push([]);
+    //this.toast(this.contenedor.length+"<- ->"+this.contenedor[this.contenedor.length-2].length,"");
     }
     else {
       this.toast("Agregue hojas al arbol actual antes de agregar otro","");
@@ -168,7 +171,7 @@ this.ocultar=!this.ocultar
     });
     
     let body = {
-      hojas:[this.vectorbase]
+      hojas: this.contenedor //[this.vectorbase]
     };
 
     this.http.post(url, JSON.stringify(body), {headers: headers})
@@ -198,6 +201,7 @@ this.ocultar=!this.ocultar
     this.imagePicker.getPictures(options).then((results) => {
       for (var i = 0; i < results.length; i++) {
         this.images.push(results[i]);  
+        this.contenedorvisual[this.contenedorvisual.length-1].push(results[i]);
         this.mifoto = results[i];
           this.base64.encodeFile(results[i]).then((base64File: string) => {
             this.vectorbase.push(base64File);

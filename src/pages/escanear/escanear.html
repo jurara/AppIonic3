@@ -46,29 +46,29 @@
 </button>
 
 <ion-content >
-  
+  <div *ngFor="let set of contenedorvisual; let in=index;">
   <div class="row" >
     <ion-item-divider>
-      Árbol 1
+      Árbol {{in+1}}
     </ion-item-divider>
-    <div *ngFor="let image of images; let i=index;">
+    <div *ngFor="let image of set; let i=index;">
       <ion-row *ngIf="i%4===0">
-        <ion-col col-3 *ngIf="i<images.length">
-            <img [src]="images[i]"  height="120px">
+        <ion-col col-3 *ngIf="i<set.length">
+            <img [src]="set[i]"  height="120px">
         </ion-col>
-        <ion-col col-3 *ngIf="i+1<images.length">
-            <img [src]="images[i+1]" height="120px">
+        <ion-col col-3 *ngIf="i+1<set.length">
+            <img [src]="set[i+1]" height="120px">
         </ion-col>
-        <ion-col col-3 *ngIf="i+2<images.length" >
-            <img [src]="images[i+2]" height="120px">
+        <ion-col col-3 *ngIf="i+2<set.length" >
+            <img [src]="set[i+2]" height="120px">
         </ion-col>
-        <ion-col col-3 *ngIf="i+3<images.length" >
-            <img [src]="images[i+3]" height="120px">
+        <ion-col col-3 *ngIf="i+3<set.length" >
+            <img [src]="set[i+3]" height="120px">
         </ion-col>
       </ion-row>
     </div>
   </div>
- 
+</div> <!-- BIG NGFOR -->
 </ion-content>
 
 <ion-fab bottom right>
