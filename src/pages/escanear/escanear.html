@@ -51,18 +51,18 @@
     <ion-item-divider>
       Árbol {{in+1}}
     </ion-item-divider>
-    <div *ngFor="let image of set; let i=index;">
+    <div *ngFor="let image of set; let i=index;" class="col-md-12">
       <ion-row *ngIf="i%4===0">
-        <ion-col col-3 *ngIf="i<set.length">
+        <ion-col col-3 *ngIf="i<set.length" class="col-md-3">
             <img [src]="set[i]"  height="120px">
         </ion-col>
-        <ion-col col-3 *ngIf="i+1<set.length">
+        <ion-col col-3 *ngIf="i+1<set.length" class="col-md-3">
             <img [src]="set[i+1]" height="120px">
         </ion-col>
-        <ion-col col-3 *ngIf="i+2<set.length" >
+        <ion-col col-3 *ngIf="i+2<set.length" class="col-md-3">
             <img [src]="set[i+2]" height="120px">
         </ion-col>
-        <ion-col col-3 *ngIf="i+3<set.length" >
+        <ion-col col-3 *ngIf="i+3<set.length" class="col-md-3">
             <img [src]="set[i+3]" height="120px">
         </ion-col>
       </ion-row>
